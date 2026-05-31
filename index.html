@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TechGear Pro – Men's Tech Accessories</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #fff; color: #111; font-family: 'DM Sans', sans-serif; font-size: 14px; }
+
+  /* TOP BAR */
+  .topbar {
+    background: #2bbbad;
+    color: #fff;
+    text-align: center;
+    padding: 10px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .topbar-arrow {
+    cursor: pointer;
+    font-size: 16px;
+    opacity: 0.8;
+  }
+
+  /* NAV */
+  .nav {
+    background: #fff;
+    border-bottom: 1px solid #e8e8e8;
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-left { display: flex; align-items: center; gap: 20px; }
+  .hamburger { font-size: 20px; cursor: pointer; color: #111; }
+  .logo-wrap { display: flex; align-items: center; gap: 10px; }
+  .logo-icon {
+    width: 52px; height: 52px;
+    border: 2px solid #2bbbad;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    color: #2bbbad;
+  }
+  .logo-text { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 700; color: #111; line-height: 1.2; }
+  .logo-text span { display: block; font-size: 10px; font-weight: 400; color: #2bbbad; letter-spacing: 0.08em; text-transform: uppercase; }
+  .nav-right { display: flex; align-items: center; gap: 20px; }
+  .nav-right .search-bar {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 7px 14px;
+    font-size: 13px;
+    color: #999;
+    width: 200px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-icons { display: flex; gap: 16px; align-items: center; font-size: 20px; color: #444; }
+  .cart-wrap { position: relative; }
+  .cart-badge {
+    position: absolute; top: -6px; right: -8px;
+    background: #2bbbad;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* SEARCH FULL WIDTH */
+  .search-full {
+    padding: 10px 32px;
+    border-bottom: 1px solid #eee;
+    background: #fff;
+  }
+  .search-full input {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    outline: none;
+  }
+
+  /* BREADCRUMB */
+  .breadcrumb {
+    padding: 12px 32px;
+    font-size: 13px;
+    color: #888;
+    background: #f5f5f5;
+    border-bottom: 1px solid #eee;
+  }
+  .breadcrumb a { color: #555; text-decoration: none; }
+  .breadcrumb a:hover { color: #2bbbad; }
+
+  /* COLLECTION HEADER */
+  .collection-header {
+    padding: 36px 32px 28px;
+    text-align: center;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+  }
+  .collection-header h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 14px;
+  }
+  .collection-header p {
+    font-size: 15px;
+    color: #555;
+    line-height: 1.7;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* TOOLBAR */
+  .toolbar {
+    padding: 12px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f5f5f5;
+    border-bottom: 1px solid #e8e8e8;
+  }
+  .view-toggle { display: flex; gap: 6px; }
+  .view-btn {
+    background: none; border: 1px solid #ccc;
+    border-radius: 4px; padding: 5px 8px;
+    cursor: pointer; font-size: 14px; color: #666;
+  }
+  .view-btn.active { border-color: #2bbbad; color: #2bbbad; }
+  .filter-sort {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 13px; color: #444; cursor: pointer;
+    border: 1px solid #ccc; border-radius: 4px;
+    padding: 6px 14px;
+    background: #fff;
+  }
+  .filter-sort:hover { border-color: #2bbbad; color: #2bbbad; }
+
+  /* PRODUCTS GRID */
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+  }
+  .product-card {
+    background: #fff;
+    border-right: 1px solid #f0f0f0;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+    position: relative;
+  }
+  .product-card:hover { box-shadow: inset 0 0 0 1px #2bbbad; }
+  .save-badge {
+    position: absolute; top: 10px; left: 10px;
+    background: #2bbbad;
+    color: #fff;
+    font-size: 11px; font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 3px;
+    z-index: 2;
+  }
+  .product-img {
+    width: 100%;
+    aspect-ratio: 1;
+    background: #f5f5f5;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 52px;
+    overflow: hidden;
+    position: relative;
+  }
+  .product-info { padding: 12px 14px 16px; }
+  .product-brand { font-size: 10px; color: #2bbbad; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+  .product-name { font-size: 13px; color: #111; line-height: 1.4; margin-bottom: 8px; font-weight: 500; }
+  .product-colors { display: flex; gap: 5px; margin-bottom: 10px; }
+  .color-swatch { width: 12px; height: 12px; border-radius: 50%; border: 1px solid #ddd; }
+  .product-price { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .price-now { font-size: 14px; color: #111; font-weight: 600; }
+  .price-was { font-size: 12px; color: #aaa; text-decoration: line-through; }
+  .add-btn {
+    width: calc(100% - 28px);
+    margin: 0 14px 14px;
+    background: transparent;
+    border: 1.5px solid #2bbbad;
+    color: #2bbbad;
+    font-size: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    padding: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: all 0.15s;
+  }
+  .add-btn:hover { background: #2bbbad; color: #fff; }
+
+  /* FAQ SECTION */
+  .faq-section {
+    padding: 48px 32px;
+    background: #fff;
+    border-top: 1px solid #eee;
+    max-width: 100%;
+  }
+  .faq-section h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 28px;
+  }
+  .faq-item { border-bottom: 1px solid #eee; }
+  .faq-question {
+    font-size: 14px;
+    color: #111;
+    font-weight: 500;
+    padding: 16px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+  }
+  .faq-question:hover { color: #2bbbad; }
+  .faq-icon { color: #2bbbad; font-size: 18px; font-weight: 300; }
+  .faq-answer {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.7;
+    padding-bottom: 16px;
+  }
+
+  /* FOOTER */
+  .footer {
+    background: #111;
+    color: #aaa;
+    text-align: center;
+    padding: 20px;
+    font-size: 12px;
+  }
+  .footer span { color: #2bbbad; }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <span class="topbar-arrow">&#8249;</span>
+  FREE SHIPPING ON ORDERS OVER $99 &nbsp;·&nbsp; FREE RETURNS &nbsp;·&nbsp; 2-YEAR WARRANTY ON ALL DEVICES
+  <span class="topbar-arrow">&#8250;</span>
+</div>
+
+<!-- NAV -->
+<div class="nav">
+  <div class="nav-left">
+    <div class="hamburger">&#9776;</div>
+    <div class="logo-wrap">
+      <div class="logo-icon">&#128187;</div>
+      <div class="logo-text">TechGear Pro<span>Australia's #1 Tech Store</span></div>
+    </div>
+  </div>
+  <div class="nav-right">
+    <div class="nav-icons">
+      <span>&#128100;</span>
+      <div class="cart-wrap">
+        <span>&#128722;</span>
+        <div class="cart-badge">0</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SEARCH BAR -->
+<div class="search-full">
+  <input type="text" placeholder="Search for laptops, headphones, cables, accessories...">
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="#">Home</a> &gt; <a href="#">Accessories</a> &gt; Men's Tech Accessories
+</div>
+
+<!-- COLLECTION HEADER -->
+<div class="collection-header">
+  <h1>Men's Tech Accessories</h1>
+  <p>Find premium tech accessories built for professionals, creators, and everyday power users. From noise-cancelling headphones to ultrafast SSDs and ergonomic peripherals — everything you need to work smarter, create faster, and stay connected.</p>
+</div>
+
+<!-- TOOLBAR -->
+<div class="toolbar">
+  <div class="view-toggle">
+    <button class="view-btn active">&#9632;&#9632;&#9632;</button>
+    <button class="view-btn">&#9644;</button>
+  </div>
+  <div class="filter-sort">&#9776; Filter and sort</div>
+</div>
+
+<!-- PRODUCTS GRID -->
+<div class="products-grid">
+
+  <div class="product-card">
+    <div class="save-badge">Save $40.00 AUD</div>
+    <div class="product-img">🎧</div>
+    <div class="product-info">
+      <div class="product-brand">Sony</div>
+      <div class="product-name">Sony WH-1000XM5 Wireless Noise-Cancelling Headphones</div>
+      <div class="product-colors">
+        <div class="color-swatch" style="background:#111"></div>
+        <div class="color-swatch" style="background:#c8b89a"></div>
+      </div>
+      <div class="product-price">
+        <span class="price-now">$359.00 AUD</span>
+        <span class="price-was">$399.00</span>
+      </div>
+    </div>
+    <button class="add-btn">Add to Cart</button>
+  </div>
+
+  <div class="product-card">
+    <div class="save-badge">Save $29.96 AUD</div>
+    <div class="product-img">⌨️</div>
+    <div class="product-info">
+      <div class="product-brand">Logitech</div>
+      <div class="product-name">Logitech MX Keys S Wireless Illuminated Keyboard</div>
+      <div class="product-colors">
+        <div class="color-swatch" style="background:#333"></div>
+        <div class="color-swatch" style="background:#f0f0f0; border:1px solid #ccc"></div>
+      </div>
+      <div class="product-price">
+        <span class="price-now">$169.99 AUD</span>
+        <span class="price-was">$199.95</span>
+      </div>
+    </div>
+    <button class="add-btn">Add to Cart</button>
+  </div>
+
+  <div class="product-card">
+    <div class="save-badge">Save $13.96 AUD</div>
+    <div class="product-img">🖱️</div>
+    <div class="product-info">
+      <div class="product-brand">Logitech</div>
+      <div class="product-name">Logitech MX Master 3S Wireless Performance Mouse</div>
+      <div class="product-colors">
+        <div class="color-swatch" style="background:#111"></div>
+        <div class="color-swatch" style="background:#f5f5f5; border:1px solid #ccc"></div>
+        <div class="color-swatch" style="background:#9e9e9e"></div>
+      </div>
+      <div class="product-price">
+        <span class="price-now">$155.99 AUD</span>
+        <span class="price-was">$169.95</span>
+      </div>
+    </div>
+    <button class="add-btn">Add to Cart</button>
+  </div>
+
+  <div class="product-card">
+    <div class="product-img">💾</div>
+    <div class="product-info">
+      <div class="product-brand">Samsung</div>
+      <div class="product-name">Samsung T7 Shield 1TB Portable SSD – USB 3.2</div>
+      <div class="product-colors">
+        <div class="color-swatch" style="background:#1a237e"></div>
+        <div class="color-swatch" style="background:#b71c1c"></div>
+        <div class="color-swatch" style="background:#f5f5dc; border:1px solid #ccc"></div>
+      </div>
+      <div class="product-price">
+        <span class="price-now">$139.00 AUD</span>
+      </div>
+    </div>
+    <button class="add-btn">Add to Cart</button>
+  </div>
+
+  <div class="product-card">
+    <div class="save-badge">Save $11.96 AUD</div>
+    <div class="product-img">🔌</div>
+    <div class="product-info">
+      <div class="product-brand">Anker</div>
+      <div class="product-name">Anker 747 GaNPrime 150W 4-Port USB-C Desktop Charger</div>
+      <div class="product-colors">
+        <div class="color-swatch" style="background:#111"></div>
+        <div class="color-swatch" style="background:#fff; border:1px solid #ccc"></div>
+      </div>
+      <div class="product-price">
+        <span class="price-now">$87.99 AUD</span>
+        <span class="price-was">$99.95</span>
+      </div>
+    </div>
+    <button class="add-btn">Add to Cart</button>
+  </div>
+
+  <div class="product-card">
+    <div class="product-img">🖥️</div>
+    <div class="product-info">
+      <div class="product-brand">LG</div>
+      <div class="product-name">LG UltraWide 34" QHD IPS Monitor with USB-C – 34WQ75C</div>
+      <div class="product-colors">
+        <div class="color-swatch" style="background:#333"></div>
+      </div>
+      <div class="product-price">
+        <span class="price-now">$699.00 AUD</span>
+      </div>
+    </div>
+    <button class="add-btn">Add to Cart</button>
+  </div>
+
+  <div class="product-card">
+    <div class="save-badge">CLEARANCE</div>
+    <div class="product-img">📱</div>
+    <div class="product-info">
+      <div class="product-brand">Belkin</div>
+      <div class="product-name">Belkin MagSafe 3-in-1 Wireless Charging Stand</div>
+      <div class="product-colors">
+        <div class="color-swatch" style="background:#111"></div>
+        <div class="color-swatch" style="background:#fff; border:1px solid #ccc"></div>
+      </div>
+      <div class="product-price">
+        <span class="price-now">$49.99 AUD</span>
+        <span class="price-was">$89.99</span>
+      </div>
+    </div>
+    <button class="add-btn">Add to Cart</button>
+  </div>
+
+  <div class="product-card">
+    <div class="product-img">🎮</div>
+    <div class="product-info">
+      <div class="product-brand">Razer</div>
+      <div class="product-name">Razer BlackShark V2 Pro Wireless Gaming Headset 2023</div>
+      <div class="product-colors">
+        <div class="color-swatch" style="background:#111"></div>
+        <div class="color-swatch" style="background:#fff; border:1px solid #ccc"></div>
+      </div>
+      <div class="product-price">
+        <span class="price-now">$229.00 AUD</span>
+      </div>
+    </div>
+    <button class="add-btn">Add to Cart</button>
+  </div>
+
+</div>
+
+<!-- FAQ SECTION -->
+<div class="faq-section">
+  <h2>Frequently asked questions</h2>
+
+  <div class="faq-item">
+    <div class="faq-question">Do you offer free shipping on tech accessories? <span class="faq-icon">+</span></div>
+    <div class="faq-answer">Yes — all orders over $99 AUD qualify for free standard shipping Australia-wide. Express and same-day delivery options are also available at checkout for most metro areas.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">What warranty do your products come with? <span class="faq-icon">+</span></div>
+    <div class="faq-answer">All devices and accessories sold through TechGear Pro come with a minimum 1-year manufacturer's warranty. Many of our premium brands — including Sony, Logitech, and Samsung — offer up to 2 years. Warranty details are listed on each product page.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">Can I return a product if it doesn't meet my expectations? <span class="faq-icon">+</span></div>
+    <div class="faq-answer">Absolutely. We offer free returns within 30 days of purchase for all unopened or defective items. Simply contact our support team and we'll arrange a pickup or drop-off return at no cost to you.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">Are your products compatible with both Mac and Windows? <span class="faq-icon">+</span></div>
+    <div class="faq-answer">Most of the accessories we stock — including keyboards, mice, headphones, and monitors — are cross-platform compatible. Compatibility details are clearly listed on each product page. If you're unsure, our team is happy to help you find the right match.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">Do you offer bulk or business pricing? <span class="faq-icon">+</span></div>
+    <div class="faq-answer">Yes — we offer special pricing for businesses, schools, and teams ordering 5 or more units. Contact our corporate team for a custom quote and we'll tailor a package to your budget and requirements.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">Are online prices different from in-store prices? <span class="faq-icon">+</span></div>
+    <div class="faq-answer">Yes — our online exclusive prices are lower than what you'll find at most retail locations. We're able to pass on the savings because we operate primarily online, which means better value for you on every order.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">How do I know which accessories are compatible with my device? <span class="faq-icon">+</span></div>
+    <div class="faq-answer">Every product page lists full compatibility details including supported operating systems, connector types, and device requirements. You can also use our search filter to shop by brand or device type, or reach out to our team for personalised recommendations.</div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  &copy; 2025 TechGear Pro Australia &nbsp;·&nbsp; All rights reserved &nbsp;·&nbsp; Built by <span>dienmarvelous</span>
+</div>
+
+</body>
+</html>
